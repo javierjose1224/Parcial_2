@@ -22,8 +22,7 @@ int main()
     cout<<"Ingrese la posicion en y del canion ofensivo: ";
     cin>>PYd0;
 
-    disparo Do(PXo0,PYo0,distancia*0.05),Dd(distancia-Do.getXo(),PYd0,distancia*0.025);
-
+    disparo Do(PXo0,PYo0,distancia*0.05),Dd(distancia+Do.getXo(),PYd0,distancia*0.025);
     generar_Disparo_Ofensivo(Do,Dd);
 
     return 0;
