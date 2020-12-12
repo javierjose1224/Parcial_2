@@ -1,6 +1,8 @@
 #ifndef DISPARO_H
 #define DISPARO_H
 #define G 9.8
+#include <math.h>
+#include <cmath>
 
 class disparo
 {

@@ -1,6 +1,4 @@
 #include "disparo.h"
-#include <math.h>
-
 
 float disparo::getXo() const
 {
