@@ -4,8 +4,8 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-        canion.cpp \
+        disparo.cpp \
         main.cpp
 
 HEADERS += \
-    canion.h
+    disparo.h
