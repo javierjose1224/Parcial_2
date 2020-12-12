@@ -1,32 +1,26 @@
 #include "disparo.h"
+#include <math.h>
 
-float disparo::getPosx() const
+
+float disparo::getXo() const
 {
-    return posx;
+    return Xo;
 }
 
-void disparo::setPosx(float value)
+float disparo::getYo() const
 {
-    posx = value;
+    return Yo;
 }
 
-float disparo::getPosy() const
+
+float disparo::getRad() const
 {
-    return posy;
+    return rad;
 }
 
-void disparo::setPosy(float value)
+disparo::disparo(float Xo_, float Yo_, float rad_)
 {
-    posy = value;
-}
-
-disparo::disparo()
-{
-
-}
-
-disparo::disparo(float posx_, float posy_)
-{
-    posx=posx_;
-    posy=posy_;
+    Xo=Xo_;
+    Yo=Yo_;
+    rad=rad_;
 }

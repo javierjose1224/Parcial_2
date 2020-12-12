@@ -1,26 +1,25 @@
-#ifndef CANION_H
-#define CANION_H
+#ifndef DISPARO_H
+#define DISPARO_H
 #define G 9.8
 
 class disparo
 {
 private:
-    float posx;
-    float posy;
+    float Xo;
+    float Yo;
     float Vo;
     float Vox;
     float Voy;
     float angulo;
+    float rad;
 
 public:
-    disparo();
-    disparo(float posx_,float posy_);
-    void generarDisparo();
 
-    float getPosx() const;
-    void setPosx(float value);
-    float getPosy() const;
-    void setPosy(float value);
+    disparo(float Xo_,float Yo_,float rad_);
+
+    float getXo() const;
+    float getYo() const;
+    float getRad() const;
 
 };
 
