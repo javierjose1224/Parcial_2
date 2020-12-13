@@ -174,9 +174,9 @@ void generar_Disparo_Defensivo3(disparo Do,disparo Dd,int angleo,int Vo0)
     float Vxod,Vyod, Vxoo,Vyoo;
     Vxoo = Vo0*cos((angleo)*pi/180);
     Vyoo = Vo0*sin((angleo)*pi/180);
-    for(float Vod = 0 ; ; Vod += 5)
+    for(float Vod = 0 ; ; Vod += 0.5)
     {
-        for(float angled = 0; angled < 90; angled++)
+        for(float angled=0;angled<90;angled+=0.5)
         {
             Vxod = Vod*cos((angled+90)*pi/180);
             Vyod = Vod*sin((angled+90)*pi/180);
@@ -184,7 +184,7 @@ void generar_Disparo_Defensivo3(disparo Do,disparo Dd,int angleo,int Vo0)
             y = 0.0;
             x2 = 0.0;
             y2 = 0.0;
-            for(float t = 0; ; t++)
+            for(float t=0; ;t+=0.5)
             {
                 x2 = Do.getXo()+Vxoo*(t+2);
                 y2 = Do.getYo() + Vyoo*(t+2) -(0.5*G*(t+2)*(t+2));
@@ -214,9 +214,9 @@ void generar_Disparo_Defensivo3(disparo Do,disparo Dd,int angleo,int Vo0)
                 }
                 if(sqrt(pow((x2 - x),2)+pow((y2 - y),2)) < Dd.getRad())
                 {
-                    if(y<0) y = 0;
-                    ImprimirResultados(angleo,Vo0,x2,y2,t+2);
+
                     cout << "_________________________________"<<endl;
+                    ImprimirResultados(angleo,Vo0,x2,y2,t+2);
                     ImprimirResultados(angled, Vod, x, y, t);
                     flag += 1;
                     Vod += 50;
