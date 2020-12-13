@@ -7,6 +7,8 @@ using namespace std;
 
 void generar_Disparo_Ofensivo(disparo Do,disparo Dd);
 void generar_Disparo_Defensivo(disparo Do,disparo Dd);
+void generar_Disparo_Defensivo2(disparo Do,disparo Dd,int angleoo,int Vooo);
+void generar_Disparo_Defensivo3(disparo Do,disparo Dd,int angleoo,int Vooo);
 
 void ImprimirResultados(int angle,int V0o,float x,float y,int t);
 
@@ -23,10 +25,13 @@ int main()
     cin>>distancia;
     cout<<"Ingrese la posicion en y del canion defensivo: ";
     cin>>PYd0;
+    cout<<endl;
 
     disparo Do(PXo0,PYo0,distancia*0.05),Dd(distancia+Do.getXo(),PYd0,distancia*0.025);
     //generar_Disparo_Ofensivo(Do,Dd);
-    generar_Disparo_Defensivo(Do,Dd);
+    //generar_Disparo_Defensivo(Do,Dd);
+    generar_Disparo_Defensivo2(Do,Dd,31,85);
+    //generar_Disparo_Defensivo3(Do,Dd,31,85);
     return 0;
 }
 
@@ -95,7 +100,6 @@ void generar_Disparo_Defensivo(disparo Do,disparo Dd)
                 y = Dd.getYo()+Vyd*t-(0.5*G*t*t);
                 if(sqrt(pow((Do.getXo()-x),2)+pow((Do.getYo()-y),2))<Dd.getRad())
                 {
-                    //if(y<0)y=0;
                     ImprimirResultados(angle,Vdo,x,y,t);
                     ban += 1;
                     Vdo += 50;
@@ -112,6 +116,122 @@ void generar_Disparo_Defensivo(disparo Do,disparo Dd)
         if(ban==3) break;
     }
     if(ban!=3){
+        cout << "No impacto en los disparos esperados"<< endl;
+    }
+}
+
+void generar_Disparo_Defensivo2(disparo Do,disparo Dd,int angleoo,int Vooo)
+{
+    int flag = 0;
+    float x,y,x2,y2;
+    float Vxo,Vy0, Vxoo,Vyoo;
+    Vxoo = Vooo*cos((angleoo)*pi/180);
+    Vyoo = Vooo*sin((angleoo)*pi/180);
+    for(float V0o=0 ; ; V0o+=0.5){
+        for(float angle = 0; angle < 90; angle+=0.5)
+        {
+            Vxo = V0o*cos((angle+90)*pi/180);
+            Vy0 = V0o*sin((angle+90)*pi/180);
+            x = 0;
+            y = 0;
+            x2 = 0;
+            y2 = 0;
+            for(float t = 0; ; t+=0.5)
+            {
+                x2 = Do.getXo() +Vxoo*(t+2);
+                y2 = Do.getYo() + Vyoo*(t+2) -(0.5*G*(t+2)*(t+2));
+                x = Dd.getXo()+Vxo*t;
+                y = Dd.getYo() + Vy0*t -(0.5*G*t*t);
+                if(sqrt(pow((x2 - x),2)+pow((y2 - y),2)) < Dd.getRad())
+                {
+                    cout << "_________________________________"<<endl;
+                    ImprimirResultados(angleoo,Vooo,x2,y2,t+2);
+                    ImprimirResultados(angle, V0o, x, y, t);
+                    flag += 1;
+                    V0o += 50;
+                    break;
+                }
+                if(y < 0)
+                {
+                    break;
+                }
+            }
+            if(flag == 3) break;
+        }
+        if(flag == 3) break;
+    }
+    if(flag != 3){
+        cout << "No impacto en los disparos esperados"<< endl;
+    }
+}
+
+void generar_Disparo_Defensivo3(disparo Do,disparo Dd,int angle0,int Vo0)
+{
+    int flag = 0;
+    bool flag2 = 0;
+    float x,y,x2,y2;
+    float aux,auy;
+    float Vxd,Vyd, Vx0,Vy0;
+    Vx0 = Vo0*cos((angle0)*pi/180);
+    Vy0 = Vo0*sin((angle0)*pi/180);
+    for(float V0d=0; ;V0d=V0d+0.5)
+    {
+        for(float angled=0;angled<90;angled=angled+0.5)
+        {
+            Vxd = V0d*cos((angled+90)*pi/180);
+            Vyd = V0d*sin((angled+90)*pi/180);
+            x = 0;
+            y = 0;
+            x2 = 0;
+            y2 = 0;
+            for(float t=0; ;t=t+0.5){
+                x2 = Do.getXo()+Vx0*(t+2);
+                y2 = Do.getYo()+Vy0*(t+2) -(0.5*G*(t+2)*(t+2));
+                x = Dd.getYo()+Vxd*t;
+                y = Dd.getYo()+Vyd*t -(0.5*G*t*t);
+                for(int t2 = t; ;t2=t+0.5){
+                    aux = Do.getXo()+Vxd*t2;
+                    auy = Do.getYo()+Vyd*t2-(0.5*G*t2*t2);
+                    if(sqrt(pow((Do.getXo() - aux),2)+pow((Do.getYo() - auy),2)) < Dd.getRad())
+                    {
+                        flag2 = 1;
+                        break;
+                    }
+                    if(auy < 0)
+                    {
+                        break;
+                    }
+                }
+                if(flag2)
+                {
+                    flag2 = 0;
+                    break;
+                }
+                if(sqrt(pow((Dd.getXo() - x2),2)+pow((Dd.getYo() - y2),2)) < Do.getRad())
+                {
+                    break;
+                }
+                if(sqrt(pow((x2 - x),2)+pow((y2 - y),2)) < Dd.getRad())
+                {
+                    //if(y<0) y = 0;
+                    ImprimirResultados(angle0,Vo0,x2,y2,t+2);
+                    cout << "_________________________________"<<endl;
+                    ImprimirResultados(angled, V0d, x, y, t);
+                    flag += 1;
+                    V0d += 50;
+                    break;
+                }
+                if(y < 0)
+                {
+                    break;
+                }
+            }
+            if(flag == 3) break;
+
+        }
+        if(flag == 3) break;
+    }
+    if(flag != 3){
         cout << "No impacto en los disparos esperados"<< endl;
     }
 }
