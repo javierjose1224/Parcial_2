@@ -10,9 +10,59 @@ void generar_Disparo_Defensivo(disparo Do,disparo Dd);
 void generar_Disparo_Defensivo2(disparo Do,disparo Dd,int angleoo,int Vooo);
 void generar_Disparo_Defensivo3(disparo Do,disparo Dd,int angleoo,int Vooo);
 
-void ImprimirResultados(int angle,int V0o,float x,float y,int t);
+void ImprimirResultados(float angle,float V0o,float x,float y,float t);
 
-void imprimir(disparo Do,disparo Dd);
+//int main()
+//{
+//    float distancia,PXo0,PYo0,PYd0;
+//    int sel;
+//    cout << "      MENU" << endl;
+//    cout << "1. Generar 3 disparos ofensivos" << endl;
+//    cout << "2. Generar 3 disparos defensivos" << endl;
+//    cout << "3. Impedir que el canion defensivo sea destruido" << endl;
+//    cout << "4. Impedir que los caniones ofensivo y defensivo sean destruidos" << endl;
+//    cout << "5. Generar 3 disparos que neutralicen el ataque defensivo y generar un ataque ofensivo" << endl << endl;
+//    cout << "Ingrese una opcion (1-5): ";
+//    cin >> sel;
+//    cout << endl;
+//    while (true)
+//    {
+//        switch (sel)
+//        {
+//        case 1:
+//        {
+//            cout<<"Ingrese la posicion en x del canion ofensivo: ";
+//            cin>>PXo0;
+//            cout<<"Ingrese la posicion en y del canion ofensivo: ";
+//            cin>>PYo0;
+//            cout<<"Ingrese la distancia del canion ofensivo con respecto al defensivo: ";
+//            cin>>distancia;
+//            cout<<"Ingrese la posicion en y del canion defensivo: ";
+//            cin>>PYd0;
+
+//            disparo Do(PXo0,PYo0,distancia*0.05),Dd(distancia+Do.getXo(),PYd0,distancia*0.025);
+//            generar_Disparo_Ofensivo(Do,Dd);
+//        }
+//        case 2:
+//        {
+//            cout<<"Ingrese la posicion en x del canion ofensivo: ";
+//            cin>>PXo0;
+//            cout<<"Ingrese la posicion en y del canion ofensivo: ";
+//            cin>>PYo0;
+//            cout<<"Ingrese la distancia del canion ofensivo con respecto al defensivo: ";
+//            cin>>distancia;
+//            cout<<"Ingrese la posicion en y del canion defensivo: ";
+//            cin>>PYd0;
+
+//            disparo Do(PXo0,PYo0,distancia*0.05),Dd(distancia+Do.getXo(),PYd0,distancia*0.025);
+//            generar_Disparo_Defensivo(Do,Dd);
+//        }
+//        default:
+//            cout << "Debe ingresar un valor correcto." << endl;
+//        }
+//    }
+//    return 0;
+//}
 
 int main()
 {
@@ -28,10 +78,10 @@ int main()
     cout<<endl;
 
     disparo Do(PXo0,PYo0,distancia*0.05),Dd(distancia+Do.getXo(),PYd0,distancia*0.025);
-    //generar_Disparo_Ofensivo(Do,Dd);
+    generar_Disparo_Ofensivo(Do,Dd);
     //generar_Disparo_Defensivo(Do,Dd);
-    //generar_Disparo_Defensivo2(Do,Dd,31,85);
-    generar_Disparo_Defensivo3(Do,Dd,31,85);
+    //generar_Disparo_Defensivo2(Do,Dd,89,100);
+    //generar_Disparo_Defensivo3(Do,Dd,45,180);
     return 0;
 }
 
@@ -49,12 +99,12 @@ void generar_Disparo_Ofensivo(disparo Do,disparo Dd)
             y=0;
             x=0;
             for(float t=0;;t=t+0.5)
-            {
+            {                
                 y=Do.getYo()+V0y*t-(0.5*G*t*t);
                 x=Do.getXo()+V0x*t;
                 if(sqrt(pow((Dd.getXo() - x),2)+pow((Dd.getYo() - y),2)) <= Do.getRad())
                 {
-                    cout<<sqrt(pow((Dd.getXo() - x),2)+pow((Dd.getYo() - y),2));
+                    //cout<<sqrt(pow((Dd.getXo() - x),2)+pow((Dd.getYo() - y),2));
                     ImprimirResultados(angle,Vo,x,y,t);                  
                     ban += 1;
                     Vo += 50;
@@ -64,8 +114,7 @@ void generar_Disparo_Ofensivo(disparo Do,disparo Dd)
                 {
                     break;
                 }
-
-            }
+            }            
             if(ban==3)
             {
                 break;
@@ -127,7 +176,8 @@ void generar_Disparo_Defensivo2(disparo Do,disparo Dd,int angleoo,int Vooo)
     float Vxo,Vy0, Vxoo,Vyoo;
     Vxoo = Vooo*cos((angleoo)*pi/180);
     Vyoo = Vooo*sin((angleoo)*pi/180);
-    for(float V0o=0 ; ; V0o+=0.5){
+    for(float V0o=0 ; ; V0o+=0.5)
+    {
         for(float angle = 0; angle < 90; angle+=0.5)
         {
             Vxo = V0o*cos((angle+90)*pi/180);
@@ -237,8 +287,7 @@ void generar_Disparo_Defensivo3(disparo Do,disparo Dd,int angleo,int Vo0)
     }
 }
 
-
-void ImprimirResultados(int angle,int V0o,float x,float y,int t)
+void ImprimirResultados(float angle,float V0o,float x,float y,float t)
 {
     cout << "Impacto con un angulo de " << angle << " grados" << endl;
     cout << "Impacto con velocidad incial " << V0o << endl;
